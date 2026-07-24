@@ -17,13 +17,23 @@ Use it when building prospect pitches, POV decks, email hooks, talk tracks, one-
 Claude Code loads a skill from a **directory** containing a `SKILL.md` file — the directory name is the skill name. Clone this repo directly into your skills folder:
 
 ```bash
-git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
+mkdir -p ~/.claude/skills && git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
   ~/.claude/skills/tableau-embedded-catalyst
 ```
 
 Then restart Claude Code. The skill appears as `/tableau-embedded-catalyst`.
 
 > **Note:** A common install mistake is dropping the file in as a flat `tableau-embedded-catalyst.md`. Claude Code only registers skills that live in their own directory as `SKILL.md`, so the flat-file version never shows up in the menu.
+
+## Updating
+
+Already installed? Pull the latest changes without reinstalling:
+
+```bash
+git -C ~/.claude/skills/tableau-embedded-catalyst pull
+```
+
+No restart needed — Claude Code reads the skill file fresh on each invocation.
 
 ## Usage
 

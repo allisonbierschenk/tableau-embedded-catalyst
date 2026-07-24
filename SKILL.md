@@ -178,9 +178,12 @@ Render all charts as inline SVG. Never use CSS box approximations, placeholder r
 
 **KPI / Pulse Metric Cards**
 - Use for: summary performance metrics at the top of any dashboard section
-- Tableau Pulse style: large metric value, trend arrow with % change, time period label, and a sparkline
-- Include 3–5 KPI cards per dashboard section minimum
-- Always interactive — see the Pulse Metrics Interactivity rules below for required click and hover behaviors
+- Three layout modes available — choose based on context and space (see full Pulse Design Standards section below):
+  - **Default** — full card grid: period label, metric name, certified badge, % change with trend arrow, large value, delta vs. prior period, sparkline, colored status bar at bottom
+  - **Card** — compact card: period label, metric name, large value, change line, sparkline with confidence band, insight sentence
+  - **BAN** — big aggregated number only: period label, metric name, giant value, change line — no sparkline
+- Include 3–5 KPI cards per dashboard section minimum (default/card layouts) or a full-width row (BAN layout)
+- Always interactive — see the Pulse Design Standards section below for required visual specs, layout anatomy, and click behaviors
 
 ---
 
@@ -241,33 +244,141 @@ A chart that is visually indistinguishable from a colored placeholder undermines
 
 ---
 
-## Pulse Metrics Interactivity — Default for All Mockups and Demos
+## Pulse Design Standards — Modern, Pixel-Faithful UI for All Mockups
 
-**Whenever Tableau Pulse metrics or KPI cards appear in any HTML mockup, demo prototype, or interactive asset, they must be interactive by default — never static.**
+**Reference screenshots:** `references/pulse-default.png` (default card grid), `references/pulse-ban.png` (BAN layout), `references/pulse-card.png` (card layout with sparkline + insight)
 
-This reflects how Tableau Pulse actually works: metrics are designed to be explored, not just read.
+Every Tableau Pulse representation in an HTML mockup must look indistinguishable from the real Tableau Pulse UI. Use the three screenshots above as the visual benchmark — if a prospect put them side by side with the mockup, the resemblance should be unmistakable.
 
-### Required interactive behaviors (implement all three):
+---
 
-1. **Hover state** — Each Pulse metric or KPI card must have a visible hover effect (e.g., subtle lift, border highlight, or "Explore →" hint appearing) so the prospect immediately understands the card is clickable.
+### Three Layout Modes — Pick Based on Context
 
-2. **Click-to-drill-down** — Clicking any Pulse metric or KPI card must open a detail view (slide-in panel, modal, or expanded section) showing:
-   - The metric value with period-over-period comparison
-   - A channel, platform, or segment breakdown (progress bars or mini chart)
-   - At least one Pulse-generated insight statement explaining *why* the metric moved
-   - A badge or label identifying the capability as "Tableau Pulse"
+**Default Layout (card grid, `layout="default"`)**
+This is the full Tableau Pulse "Today's Pulse" experience. Use it for the primary analytics page of a portal mockup.
 
-3. **Pulse insight card interactivity** — Any standalone Pulse insight card in the mockup must include a clearly labeled "View Full Analysis" or "Explore in Pulse" button that triggers additional detail — not a dead element.
+Visual anatomy of each card (from the reference screenshot):
+- **Top row:** metric name (truncated, ~20 chars max) + ⓘ info icon + `···` overflow menu — right-aligned
+- **Second row:** time period label (e.g., "Month to Date") + green certified dot
+- **Trend row (red/green):** small trend-down arrow icon + % change in red or green (e.g., `-4.5%`) — this sits *above* the value
+- **Value:** large bold number, ~2.2rem, near-black (`#1a1a2e`) — the hero element
+- **Delta row:** small muted text: `-3.0 vs. prior period`
+- **Sparkline area:** inline SVG sparkline, ~180×80px, steel-blue line (`#4e8fdb`) with the line path shaped as actual trend data; y-axis value label on left; two x-axis date labels (start + end period)
+- **Status bar:** 4px solid bar at the very bottom of the card — red (`#e8293b`) for unfavorable, green (`#2e7d4f`) for favorable
+- Card background: white; border: `1px solid #e5e7eb`; border-radius: `12px`; box-shadow: `0 1px 4px rgba(0,0,0,0.06)`
+- Card size: ~220px wide × 210px tall; grid: `repeat(auto-fill, minmax(200px, 1fr))`, gap 12px
+- Period grouping: section headers above each row of cards (e.g., "Month to Date 📅 5") in small semibold gray text
+
+Page-level chrome for default layout:
+- Page title: "Today's Pulse" in 24px semibold
+- Summary sentence below title: 1–2 sentences summarizing how many metrics changed and by how much (Pulse AI narrative)
+- Toggle row: "Following" (active pill) | "Browse Metrics" — and on the right: Style: Classic / **Modern** (active), Null Values: Show / **Hide** (active), Group by: **None** / Period, and sort controls (Certified, Trend)
+
+**BAN Layout (`layout="ban"`)**
+Big aggregated number. Use when space is at a premium or to create a hero stat row.
+
+Visual anatomy:
+- Background: white card with subtle border and border-radius `8px`
+- **Period label:** small muted gray text at top-left, e.g., "Last Month" — `font-size: 13px; color: #6b7280`
+- **Metric name:** bold, ~16px, near-black, with green certified checkmark badge inline — `font-weight: 600`
+- **Value:** enormous, ~3.5rem, near-black — the only element that matters in this layout
+- **Change line:** `font-size: 14px` — percentage in red or green bold (e.g., `-2.4%`) followed by muted text: `(-$1.1M) vs. prior month`
+- No sparkline, no status bar, no overflow menu
+- Cards sit side by side in a 2-column grid, full width
+
+**Card Layout (`layout="card"`)**
+Compact card with a full sparkline and an AI insight sentence. Use for secondary metric sections or when you want the trend story visible.
+
+Visual anatomy:
+- **Period label:** small muted gray, top-left
+- **Metric name:** bold ~16px, near-black
+- **Value:** large ~2.8rem, near-black
+- **Change line:** colored percentage + delta text (same pattern as BAN)
+- **Sparkline:** full-width SVG area chart — a steel-blue line (`#4e8fdb`) with a light blue confidence band fill (`rgba(78,143,219,0.12)`) underneath; a filled circle dot at the current value endpoint with a vertical dashed reference line; y-axis start/end labels on left; x-axis start/end date labels at bottom
+- **Insight sentence:** below the sparkline — `font-size: 13px`, near-black. Format: `**Metric Name** is [stable/declining/growing]. [1–2 sentence explanation with bold key terms].` Example: `**Average Propensity to Churn** is stable. The trend first began in November 2024 (historical patterns are considered).`
+  - "Bottom contributors" / "Top contributors" phrasing followed by region/segment breakdown with bold names and parenthetical percentages
+- Cards: 2-column grid; background white; border `1px solid #e5e7eb`; border-radius `12px`; padding `20px`
+- No status bar on card layout
+
+---
+
+### Sparkline SVG Implementation — Required Fidelity
+
+All sparklines must be real inline SVG computed from mock data arrays. Never use CSS gradients or placeholder boxes.
+
+```javascript
+// Compute sparkline path from data array
+function sparkline(data, width, height) {
+  const min = Math.min(...data), max = Math.max(...data);
+  const range = max - min || 1;
+  const pts = data.map((v, i) => {
+    const x = (i / (data.length - 1)) * width;
+    const y = height - ((v - min) / range) * height;
+    return [x, y];
+  });
+  const line = pts.map((p, i) => (i === 0 ? `M${p[0]},${p[1]}` : `L${p[0]},${p[1]}`)).join(' ');
+  const area = line + ` L${pts[pts.length-1][0]},${height} L0,${height} Z`;
+  return { line, area, pts };
+}
+```
+
+- Line stroke: `#4e8fdb`, strokeWidth `2`
+- Area fill: `rgba(78,143,219,0.12)` (card layout only)
+- Endpoint dot: `r=4`, fill `#4e8fdb`, stroke `white`, strokeWidth `2`
+- Vertical reference line at endpoint: `stroke: #1a1a2e`, `strokeDasharray: "3,3"`, opacity `0.4`
+- For default layout sparklines: use a narrower height (~60px), no area fill, just the line
+- Y-axis label: one value on the left at roughly the midpoint; x-axis: first period label left, last period label right in **bold**
+
+---
+
+### Required Interactivity (All Layouts)
+
+Pulse is never static in a mockup. Implement all three behaviors:
+
+1. **Hover state** — Cards lift slightly: `transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); transition: all 0.15s ease`. The cursor becomes a pointer. For default layout, the `···` menu icon becomes visible on hover.
+
+2. **Click-to-drill-down** — Clicking any card opens a right-side slide-in panel (fixed, `width: 420px`, white background, `box-shadow: -4px 0 24px rgba(0,0,0,0.12)`). Panel content:
+   - Header: metric name + certified badge + close `✕` button
+   - Period selector tabs: MTD / QTD / YTD
+   - Large value + change line
+   - Full sparkline (card-layout style with confidence band), ~300px wide
+   - AI insight paragraph (same format as card layout insight sentence)
+   - Segment breakdown: a small horizontal bar chart showing top/bottom contributors by region or segment
+   - "Powered by Tableau Pulse" badge at panel bottom
+   - Panel uses prospect's brand primary color for the header bar
+
+3. **Insight card button** — Any standalone Pulse insight element must have a "View Full Analysis" or "Explore in Pulse →" button that triggers the drill-down panel or an expanded inline section.
 
 ### Implementation notes:
-- Use JavaScript for the interaction layer — inline `onclick` handlers are fine for self-contained HTML files
-- Slide-in panels (fixed, right-side, with overlay) are the preferred drill-down pattern — they match how Tableau Pulse surfaces detail in-product
-- Populate drill-down content with realistic, prospect-specific data — never lorem ipsum or generic placeholder text
-- The drill-down panel header should use the prospect's brand colors if the mockup is branded
+- Use inline `onclick` and CSS transitions — no external libraries needed
+- Pre-populate one card's drill-down with rich content on load; others can share the same pattern with different data
+- Populate all content with prospect-specific data — no lorem ipsum, no "Metric 1"
+- This applies to HTML prototype outputs only; PDF outputs are static
 
-### What this is NOT:
-- This does not require building a fully functional data pipeline — mock data is expected and appropriate
-- This does not apply to PDF or static image outputs — interactivity is an HTML/prototype-only requirement
+---
+
+### Pulse Theming — Match Prospect Brand
+
+When the portal is brand-immersed, apply these overrides to the Pulse color layer (using the `<theme-parameter>` pattern from the Embedding API):
+
+```html
+<!-- In a real embed: -->
+<tableau-pulse src="..." layout="card">
+  <theme-parameter name="backgroundColor" value="#ffffff"></theme-parameter>
+  <theme-parameter name="foregroundColor" value="#1a1a2e"></theme-parameter>
+  <theme-parameter type="chart" name="primary" value="[BRAND_PRIMARY]"></theme-parameter>
+  <theme-parameter type="chart" name="favorable" value="#2e7d4f"></theme-parameter>
+  <theme-parameter type="chart" name="unfavorable" value="#e8293b"></theme-parameter>
+</tableau-pulse>
+```
+
+In a mockup (not a real embed), replicate these by using the prospect's brand primary color for:
+- Sparkline line stroke
+- Endpoint dot fill
+- Hover border accent
+- Drill-down panel header background
+
+Keep favorable = green (`#2e7d4f`) and unfavorable = red (`#e8293b`) unless the prospect's brand specifically overrides these — they are semantic colors the prospect's customers will learn to read.
 
 ---
 
