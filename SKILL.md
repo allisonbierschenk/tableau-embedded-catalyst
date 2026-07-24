@@ -506,15 +506,15 @@ If no documents are provided, draw on your own knowledge of Tableau Embedded, th
 
 ---
 
-## HTML Demo Delivery — Live in Chrome for Screen Share
+## HTML Demo Delivery — Open in Chrome or Export
 
-When you generate an HTML portal mockup or Pulse demo, the AE needs to show it live in Chrome — not as a file attachment they don't know what to do with. Follow this delivery sequence every time.
+When you generate an HTML portal mockup or Pulse demo, give clear instructions for two things: how to open it locally in Chrome using localhost, and how to export or share the file. Follow this delivery sequence every time.
 
 ---
 
 ### Step 1: Save the HTML file
 
-Write the HTML file to a predictable location the AE can find:
+Write the HTML file to a predictable location:
 
 ```
 ~/Desktop/[prospect-name]-demo/index.html
@@ -539,27 +539,15 @@ If Python isn't available, fall back to:
 open -a "Google Chrome" ~/Desktop/[prospect-name]-demo/index.html
 ```
 
-Then tell the AE exactly what happened:
+Then confirm exactly what happened:
 
 ---
 
-*"Your demo is now open in Chrome at **http://localhost:8080** — here's what to do next:*
+*"Your demo is live in Chrome at **http://localhost:8080**.*
 
-*1. **To show your customer:** Share your screen in Zoom/Teams and switch to the Chrome window. The demo runs entirely in the browser — no login, no Tableau license needed on their end.*
-
-*2. **To present full-screen:** Press **⌘+Shift+F** in Chrome (or F11 on Windows) to hide the browser chrome and show only the demo.*
-
-*3. **To stop the server when you're done:** Run `kill $(lsof -ti:8080)` in your terminal, or just close the terminal window.*
-
-*4. **To reopen the demo later:** Run `cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 & sleep 1 && open -a "Google Chrome" http://localhost:8080`"*
-
----
-
-### Step 3: Offer a shareable file as backup
-
-After launching, always offer:
-
-*"Want a standalone file you can email or share? The HTML file at `~/Desktop/[prospect-name]-demo/index.html` opens directly in any browser — just double-click it or attach it to an email."*
+*— **To reopen it later:** run `cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 & sleep 1 && open -a "Google Chrome" http://localhost:8080`*
+*— **To stop the server:** run `kill $(lsof -ti:8080)` or close the terminal window.*
+*— **To share the file:** the HTML file is at `~/Desktop/[prospect-name]-demo/index.html`. You can email it or upload it directly — just tell the recipient to open it in Chrome (not Safari, and not by double-clicking from Finder — drag it into a Chrome tab or use File → Open). Some interactions won't work if opened via `file://` in Chrome; for a fully interactive demo, the recipient should run the same local server command above."*
 
 ---
 
@@ -928,10 +916,9 @@ The key Challenger reframe for HLS prospects: their current analytics experience
 
 **Note on coverage:** The FINS use cases in this deck (Banking, Wealth & Asset Management, Insurance) are fully captured in REF 4. This entry records the unique elements: the presenters, the demo asset, and the brand positioning confirmation for FINS conversations.
 
-**Presenters / SE Contacts**
-- **Alex Cortez** — Embedded Solution Engineer
+**Presenter / Contact**
 - **Allison Bierschenk** — Embedded Solution Engineer
-These are the named Embedded SEs for the FINS version of this pitch. Useful to know if coordinating with SE resources on a FINS deal.
+This is the named Embedded Solution Engineer for the FINS version of this pitch. Useful to know if coordinating with solution engineering resources on a FINS deal.
 
 **Demo Asset: Cumulus Bank**
 The canonical art-of-the-possible demo for FINS embedded analytics conversations is **Cumulus Bank** — a fictional retail/commercial bank portal showing Tableau Embedded in a branded customer-facing experience. Key demo attributes:
