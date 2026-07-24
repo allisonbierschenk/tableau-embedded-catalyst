@@ -14,26 +14,31 @@ Use it when building prospect pitches, POV decks, email hooks, talk tracks, one-
 
 ## Install
 
-Claude Code loads a skill from a **directory** containing a `SKILL.md` file — the directory name is the skill name. Clone this repo directly into your skills folder:
+Claude Code loads a skill from a **directory** containing a `SKILL.md` file — the directory name is the skill name. Run this single command to install:
 
 ```bash
-mkdir -p ~/.claude/skills && git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
+mkdir -p ~/.claude/skills && \
+rm -rf ~/.claude/skills/tableau-embedded-catalyst && \
+git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
   ~/.claude/skills/tableau-embedded-catalyst
 ```
 
-Then restart Claude Code. The skill appears as `/tableau-embedded-catalyst`.
+This removes any previous copy (whether it was cloned or copied) and installs a fresh clone. No restart needed — the skill appears as `/tableau-embedded-catalyst` immediately.
 
 > **Note:** A common install mistake is dropping the file in as a flat `tableau-embedded-catalyst.md`. Claude Code only registers skills that live in their own directory as `SKILL.md`, so the flat-file version never shows up in the menu.
 
 ## Updating
 
-Already installed? Pull the latest changes without reinstalling:
+Run the same install command above — it removes the old copy and re-clones in one step, so it works regardless of how you originally installed it:
 
 ```bash
-git -C ~/.claude/skills/tableau-embedded-catalyst pull
+mkdir -p ~/.claude/skills && \
+rm -rf ~/.claude/skills/tableau-embedded-catalyst && \
+git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
+  ~/.claude/skills/tableau-embedded-catalyst
 ```
 
-No restart needed — Claude Code reads the skill file fresh on each invocation.
+No restart needed after updating.
 
 ## Usage
 
