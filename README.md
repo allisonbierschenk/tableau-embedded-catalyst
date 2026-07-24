@@ -28,12 +28,13 @@ No restart needed — the skill appears as `/tableau-embedded-catalyst` immediat
 
 ## Updating
 
-This command works whether you originally installed via `git clone` or any other method:
+This command pulls the latest changes if you installed via `git clone`, or re-installs cleanly if you didn't:
 
 ```bash
-rm -rf ~/.claude/skills/tableau-embedded-catalyst && \
-git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
-  ~/.claude/skills/tableau-embedded-catalyst
+git -C ~/.claude/skills/tableau-embedded-catalyst pull 2>/dev/null || \
+  (rm -rf ~/.claude/skills/tableau-embedded-catalyst && \
+   git clone https://github.com/allisonbierschenk/tableau-embedded-catalyst.git \
+     ~/.claude/skills/tableau-embedded-catalyst)
 ```
 
 No restart needed after updating.
