@@ -506,7 +506,68 @@ If no documents are provided, draw on your own knowledge of Tableau Embedded, th
 
 ---
 
-## One-Pager / PDF Output
+## HTML Demo Delivery — Live in Chrome for Screen Share
+
+When you generate an HTML portal mockup or Pulse demo, the AE needs to show it live in Chrome — not as a file attachment they don't know what to do with. Follow this delivery sequence every time.
+
+---
+
+### Step 1: Save the HTML file
+
+Write the HTML file to a predictable location the AE can find:
+
+```
+~/Desktop/[prospect-name]-demo/index.html
+```
+
+Example: `~/Desktop/acme-corp-demo/index.html`
+
+---
+
+### Step 2: Launch it automatically
+
+After writing the file, run this command to start a local server and open it in Chrome:
+
+```bash
+cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 &
+sleep 1 && open -a "Google Chrome" http://localhost:8080
+```
+
+If Python isn't available, fall back to:
+
+```bash
+open -a "Google Chrome" ~/Desktop/[prospect-name]-demo/index.html
+```
+
+Then tell the AE exactly what happened:
+
+---
+
+*"Your demo is now open in Chrome at **http://localhost:8080** — here's what to do next:*
+
+*1. **To show your customer:** Share your screen in Zoom/Teams and switch to the Chrome window. The demo runs entirely in the browser — no login, no Tableau license needed on their end.*
+
+*2. **To present full-screen:** Press **⌘+Shift+F** in Chrome (or F11 on Windows) to hide the browser chrome and show only the demo.*
+
+*3. **To stop the server when you're done:** Run `kill $(lsof -ti:8080)` in your terminal, or just close the terminal window.*
+
+*4. **To reopen the demo later:** Run `cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 & sleep 1 && open -a "Google Chrome" http://localhost:8080`"*
+
+---
+
+### Step 3: Offer a shareable file as backup
+
+After launching, always offer:
+
+*"Want a standalone file you can email or share? The HTML file at `~/Desktop/[prospect-name]-demo/index.html` opens directly in any browser — just double-click it or attach it to an email."*
+
+---
+
+### Why localhost instead of just opening the file
+
+Some browsers (especially Chrome) block JavaScript features like fetch requests and certain animations when opening HTML files directly via `file://`. Running a local server ensures the demo behaves exactly as intended — all interactions, animations, and chart renders will work correctly.
+
+---
 
 When the user asks for a one-pager, leave-behind, or PDF attachment, generate a polished **PDF file directly** using Python + reportlab. Do not output plain text or markdown — it must be a real `.pdf` file the seller can attach to an email immediately.
 
