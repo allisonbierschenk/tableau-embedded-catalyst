@@ -526,34 +526,38 @@ Example: `~/Desktop/acme-corp-demo/index.html`
 
 ### Step 2: Launch it automatically
 
-After writing the file, run this command to start a local server and open it in Chrome:
+**You must actually execute these commands using your bash tool — do not just show them to the user.**
+
+Run this to start a local server and open Chrome:
 
 ```bash
 cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 &
 sleep 1 && open -a "Google Chrome" http://localhost:8080
 ```
 
-If Python isn't available, fall back to:
+If that fails because Python isn't available, run:
 
 ```bash
 open -a "Google Chrome" ~/Desktop/[prospect-name]-demo/index.html
 ```
 
-Then confirm exactly what happened:
+After running the command, output the following message to the user — word for word, in plain language they can act on immediately (this is a non-technical audience):
 
 ---
 
-*"Your demo is live in Chrome at **http://localhost:8080**.*
+*"Your demo just opened in Chrome at **http://localhost:8080** — you should see it on your screen now.*
 
-*— **To reopen it later:** run `cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 & sleep 1 && open -a "Google Chrome" http://localhost:8080`*
-*— **To stop the server:** run `kill $(lsof -ti:8080)` or close the terminal window.*
-*— **To share the file:** the HTML file is at `~/Desktop/[prospect-name]-demo/index.html`. You can email it or upload it directly — just tell the recipient to open it in Chrome (not Safari, and not by double-clicking from Finder — drag it into a Chrome tab or use File → Open). Some interactions won't work if opened via `file://` in Chrome; for a fully interactive demo, the recipient should run the same local server command above."*
+*Here's what you need to know:*
+
+*— **To reopen it later:** Type `! cd ~/Desktop/[prospect-name]-demo && python3 -m http.server 8080 & sleep 1 && open -a "Google Chrome" http://localhost:8080` in this chat window and press enter.*
+*— **To stop it when you're done:** Type `! kill $(lsof -ti:8080)` in this chat window, or just close the terminal.*
+*— **To email or share it:** Attach the file at `~/Desktop/[prospect-name]-demo/index.html` to an email. Tell the recipient to open it in Chrome — either drag the file into a Chrome window, or in Chrome go to File → Open File. It won't look right in Safari or if double-clicked from Finder."*
 
 ---
 
 ### Why localhost instead of just opening the file
 
-Some browsers (especially Chrome) block JavaScript features like fetch requests and certain animations when opening HTML files directly via `file://`. Running a local server ensures the demo behaves exactly as intended — all interactions, animations, and chart renders will work correctly.
+Chrome blocks certain JavaScript features (animations, interactions) when opening HTML files directly via `file://`. Running a local server ensures everything works as intended.
 
 ---
 
